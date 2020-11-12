@@ -17,6 +17,17 @@
     },
     "rules": {
         "react/prop-types": "off",
-        "semi": "error"
+        "semi": "error",
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "quotes": [
+            "error",
+            "single",
+            {
+                "allowTemplateLiterals": true
+            }
+        ]
     }
 }
