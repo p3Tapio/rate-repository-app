@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { Formik } from 'formik';
+import * as yup from 'yup';
+
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
 import { containerStyles, buttonStyles } from '../theme';
@@ -17,9 +19,17 @@ const SignIn = () => {
         values.username = '';
         values.password = '';
     };
+    const validationSchema = yup.object().shape({
+        password: yup.string().required('Password is required!'),
+        username: yup.string().required('Username is required!'),
+    });
 
     return (
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+        >
             {({ handleSubmit }) => <LoginForm onSubmit={handleSubmit} />}
         </Formik>
     );
@@ -30,14 +40,13 @@ const LoginForm = ({ onSubmit }) => {
 
     const handleSubmit = () => {
         onSubmit();
-
         setSigninStyle(buttonStyles.submitPressed);
         setTimeout(() => {
             setSigninStyle(buttonStyles.submit);
         }, 300);
     };
     return (
-        <View style={{margin:20}}>
+        <View style={{ margin: 20 }}>
             <View style={containerStyles.mainCardContainer}>
                 <FormikTextInput name="username" placeholder="Username" />
                 <FormikTextInput name="password" placeholder="Password" secureTextEntry={true} />
@@ -49,6 +58,5 @@ const LoginForm = ({ onSubmit }) => {
 
     );
 };
-
 
 export default SignIn;

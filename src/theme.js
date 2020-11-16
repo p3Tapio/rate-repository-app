@@ -60,7 +60,7 @@ export const buttonStyles = StyleSheet.create({
         // alignSelf: 'center',
         textAlign: 'center',
         marginLeft: 3,
-        marginTop: 6,
+        marginTop: 10,
 
         elevation: 5,
         shadowColor: '#000',
@@ -80,7 +80,7 @@ export const buttonStyles = StyleSheet.create({
         // alignSelf: 'center',
         textAlign: 'center',
         marginLeft: 4,
-        marginTop: 6,
+        marginTop: 10,
 
         elevation: 2,
         shadowColor: '#000',
