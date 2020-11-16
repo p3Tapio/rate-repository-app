@@ -1,39 +1,7 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image } from 'react-native';
 import Text from './Text';
-
-const repoContainerStyles = StyleSheet.create({
-    mainCardContainer: {
-        borderRadius: 15,
-        padding: 15,
-        backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: 'lightgray',
-        margin: 5,
-
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 4, height: 5 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-    },
-    headContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        marginLeft: 10,
-    },
-    statsContainer: {
-        flexDirection: 'row',
-        marginHorizontal: 50,
-        marginTop: 5,
-    },
-    repoAvatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 5,
-        marginTop: 5
-    },
-});
+import { containerStyles } from '../theme';
 
 const rounder = (x) => {
     const y = x / 1000;
@@ -43,8 +11,8 @@ const rounder = (x) => {
 const RepoHeadElement = ({ item }) => {
     return (
         <View style={{ flexDirection: 'row' }}>
-            <Image source={{ uri: item.ownerAvatarUrl }} style={repoContainerStyles.repoAvatar}></Image>
-            <View style={repoContainerStyles.headContainer}>
+            <Image source={{ uri: item.ownerAvatarUrl }} style={containerStyles.repoAvatar}></Image>
+            <View style={containerStyles.headContainer}>
                 <Text fontWeight="bold">{item.fullName}</Text>
                 <Text>{item.description}</Text>
                 <View style={{ alignSelf: 'flex-start' }}>
@@ -57,7 +25,7 @@ const RepoHeadElement = ({ item }) => {
 
 const RepoStats = ({ item }) => {
     return (
-        <View style={repoContainerStyles.statsContainer}>
+        <View style={containerStyles.statsContainer}>
             <View style={{ marginHorizontal: 10 }}>
                 <Text fontSize="small" fontWeight="bold">{item.stargazersCount > 1000 ? rounder(item.stargazersCount) : item.stargazersCount}</Text>
                 <Text fontSize="small">Stars</Text>
@@ -79,7 +47,7 @@ const RepoStats = ({ item }) => {
 };
 
 const RepositoryItem = ({ item }) => (
-    <View style={repoContainerStyles.mainCardContainer}>
+    <View style={containerStyles.mainCardContainer}>
         <RepoHeadElement item={item} />
         <RepoStats item={item} />
     </View>

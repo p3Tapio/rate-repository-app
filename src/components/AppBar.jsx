@@ -22,14 +22,14 @@ const AppBar = () => {
     return (
         <View style={styles.container}>
             <ScrollView horizontal>
-                <Link to="/signin" component={TouchableWithoutFeedback}>
-                    <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
-                        Sign in
-                    </Text>
-                </Link>
                 <Link to="/" component={TouchableWithoutFeedback}>
                     <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
                         Repositories
+                    </Text>
+                </Link>
+                <Link to="/signin" component={TouchableWithoutFeedback}>
+                    <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
+                        Sign in
                     </Text>
                 </Link>
             </ScrollView>
