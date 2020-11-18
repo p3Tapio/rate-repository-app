@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
         height: 40,
         padding: 10
     },
-
 });
 
 const TextInput = ({ error, ...props }) => {
