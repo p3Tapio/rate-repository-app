@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
+import useSignIn from '../hooks/useSignIn';
+import AuthStorage from '../utils/authStorage';
+
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -14,8 +17,20 @@ const initialValues = {
 
 const SignIn = () => {
 
-    const onSubmit = (values) => {
-        console.log('values:', values);
+    const [signIn] = useSignIn();
+
+    const onSubmit = async (values) => {
+        const { username, password } = values;
+        const user = new AuthStorage('user');
+
+        try {
+            const { data } = await signIn({ username, password });
+            console.log(data.authorize.accessToken);
+            await user.setAccessToken(data.authorize.accessToken);
+        } catch (e) {
+            console.log(e);
+        }
+
         values.username = '';
         values.password = '';
     };
@@ -55,7 +70,6 @@ const LoginForm = ({ onSubmit }) => {
                 </TouchableWithoutFeedback>
             </View>
         </View>
-
     );
 };
 
