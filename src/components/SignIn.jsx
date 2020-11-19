@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback, View, Alert } from 'react-native';
 import useSignIn from '../hooks/useSignIn';
-import AuthStorage from '../utils/authStorage';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -21,13 +20,11 @@ const SignIn = () => {
 
     const onSubmit = async (values) => {
         const { username, password } = values;
-        const user = new AuthStorage('user');
 
         try {
-            const { data } = await signIn({ username, password });
-            console.log(data.authorize.accessToken);
-            await user.setAccessToken(data.authorize.accessToken);
+            await signIn({ username, password });
         } catch (e) {
+            Alert.alert(e.graphQLErrors[0].message);
             console.log(e);
         }
 
