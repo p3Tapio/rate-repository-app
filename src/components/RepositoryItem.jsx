@@ -13,10 +13,10 @@ const RepoHeadElement = ({ item }) => {
         <View style={{ flexDirection: 'row' }}>
             <Image source={{ uri: item.ownerAvatarUrl }} style={containerStyles.repoAvatar}></Image>
             <View style={containerStyles.headContainer}>
-                <Text fontWeight="bold">{item.fullName}</Text>
-                <Text>{item.description}</Text>
+                <Text fontWeight="bold" testID="repoFullname">{item.fullName}</Text>
+                <Text testID="repoDescription">{item.description}</Text>
                 <View style={{ alignSelf: 'flex-start' }}>
-                    <Text textEffect='language'>{item.language}</Text>
+                    <Text textEffect='language' testID="repoLanguage">{item.language}</Text>
                 </View>
             </View>
         </View>
@@ -27,19 +27,19 @@ const RepoStats = ({ item }) => {
     return (
         <View style={containerStyles.statsContainer}>
             <View style={{ marginHorizontal: 10 }}>
-                <Text fontSize="small" fontWeight="bold">{item.stargazersCount > 1000 ? rounder(item.stargazersCount) : item.stargazersCount}</Text>
+                <Text fontSize="small" fontWeight="bold" testID="repoStars">{item.stargazersCount > 1000 ? rounder(item.stargazersCount) : item.stargazersCount}</Text>
                 <Text fontSize="small">Stars</Text>
             </View>
             <View style={{ marginHorizontal: 10 }}>
-                <Text fontSize="small" fontWeight="bold">{item.forksCount > 1000 ? rounder(item.forksCount) : item.forksCount}</Text>
+                <Text fontSize="small" fontWeight="bold" testID="repoForks">{item.forksCount > 1000 ? rounder(item.forksCount) : item.forksCount}</Text>
                 <Text fontSize="small">Forks</Text>
             </View>
             <View style={{ marginHorizontal: 10 }}>
-                <Text fontSize="small" fontWeight="bold">{item.reviewCount}</Text>
+                <Text fontSize="small" fontWeight="bold" testID="repoReviews">{item.reviewCount}</Text>
                 <Text fontSize="small">Reviews</Text>
             </View>
             <View style={{ marginHorizontal: 10 }}>
-                <Text fontSize="small" fontWeight="bold">{item.ratingAverage}</Text>
+                <Text fontSize="small" fontWeight="bold" testID="repoRating">{item.ratingAverage}</Text>
                 <Text fontSize="small">Rating</Text>
             </View>
         </View>

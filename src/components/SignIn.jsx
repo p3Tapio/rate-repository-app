@@ -25,7 +25,6 @@ const SignIn = () => {
             await signIn({ username, password });
         } catch (e) {
             Alert.alert(e.graphQLErrors[0].message);
-            console.log(e);
         }
 
         values.username = '';
@@ -47,23 +46,15 @@ const SignIn = () => {
     );
 };
 
-const LoginForm = ({ onSubmit }) => {
-    const [signinStyle, setSigninStyle] = useState(buttonStyles.submit);
+export const LoginForm = ({ onSubmit }) => {
 
-    const handleSubmit = () => {
-        onSubmit();
-        setSigninStyle(buttonStyles.submitPressed);
-        setTimeout(() => {
-            setSigninStyle(buttonStyles.submit);
-        }, 300);
-    };
     return (
         <View style={{ margin: 20 }}>
             <View style={containerStyles.mainCardContainer}>
-                <FormikTextInput name="username" placeholder="Username" />
-                <FormikTextInput name="password" placeholder="Password" secureTextEntry={true} />
-                <TouchableWithoutFeedback onPress={handleSubmit} >
-                    <Text style={signinStyle}>Sign in</Text>
+                <FormikTextInput name="username" placeholder="Username" testID="username" />
+                <FormikTextInput name="password" placeholder="Password" secureTextEntry={true} testID="password" />
+                <TouchableWithoutFeedback onPress={onSubmit} testID="submit">
+                    <Text style={buttonStyles.submit}>Sign in</Text>
                 </TouchableWithoutFeedback>
             </View>
         </View>
@@ -71,3 +62,15 @@ const LoginForm = ({ onSubmit }) => {
 };
 
 export default SignIn;
+
+
+
+// const [signinStyle, setSigninStyle] = useState(buttonStyles.submit);
+
+// const handleSubmit = () => {
+//     onSubmit();
+//     setSigninStyle(buttonStyles.submitPressed);
+//     setTimeout(() => {
+//         setSigninStyle(buttonStyles.submit);
+//     }, 300);
+// };

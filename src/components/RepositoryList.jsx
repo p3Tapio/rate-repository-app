@@ -5,9 +5,8 @@ import RepositoryItem from './RepositoryItem';
 
 const ItemSeparator = () => <View />;
 
-const RepositoryList = () => {
-    const { data } = useRepositories();
-    const repositoryNodes = data ? data.repositories.edges.map(edge => edge.node) : [];
+export const RepositoryListContainer = ({ repos }) => {
+    const repositoryNodes = repos ? repos.edges.map(edge => edge.node) : [];
     return (
         <View style={{ flex: 1 }}>
             <FlatList
@@ -20,5 +19,12 @@ const RepositoryList = () => {
         </View>
     );
 };
+
+const RepositoryList = () => {
+    const { data } = useRepositories();
+    if (!data) return null;
+    return <RepositoryListContainer repos={data.repositories} />;
+};
+
 
 export default RepositoryList;
