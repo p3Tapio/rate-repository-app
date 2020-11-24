@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { Link } from 'react-router-native';
+import { Link, useHistory } from 'react-router-native';
 
 import Text from './Text';
 import Constants from 'expo-constants';
@@ -26,10 +26,12 @@ const AppBar = () => {
     const { data } = useQuery(GET_USER);
     const authStorage = useContext(AuthStorageContext);
     const client = useApolloClient();
+    const history = useHistory(); 
 
     const handleLogout = async () => {
         await authStorage.removeAccessToken();
         client.resetStore();
+        history.push('/');
     };
 
     if (!data) return null;
@@ -42,11 +44,18 @@ const AppBar = () => {
                     </Text>
                 </Link>
                 {data.authorizedUser !== null
-                    ? <TouchableWithoutFeedback onPress={handleLogout}>
-                        <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
-                            Sign out
-                        </Text>
-                    </TouchableWithoutFeedback>
+                    ? <>
+                        <Link to="/review" component={TouchableWithoutFeedback}>
+                            <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
+                                Create a review
+                            </Text>
+                        </Link>
+                        <TouchableWithoutFeedback onPress={handleLogout}>
+                            <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
+                                Sign out
+                            </Text>
+                        </TouchableWithoutFeedback>
+                    </>
                     : <Link to="/signin" component={TouchableWithoutFeedback}>
                         <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
                             Sign in

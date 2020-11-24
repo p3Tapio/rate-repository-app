@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_REPO_DETAILS } from '../graphql/queries';
@@ -18,9 +18,6 @@ const dateFormat = (x) => {
 
     return `${dd}.${mm}.${yyyy}`;
 };
-// const RepositoryInfo = ({ repository }) => {
-//     // Repository's information implemented in the previous exercise
-// };
 
 const ReviewItem = ({ review }) => {
     
@@ -55,7 +52,6 @@ const SingleRepository = () => {
             renderItem={({ item }) => <ReviewItem review={item} />}
             keyExtractor={({ id }) => id}
             ListHeaderComponent={() => <RepositoryItem item={data.repository} />}
-        // ...
         />
     );
 };

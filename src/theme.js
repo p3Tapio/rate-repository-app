@@ -59,7 +59,7 @@ export const containerStyles = StyleSheet.create({
         borderWidth: 5,
         borderColor: theme.colors.appBarBackgroud,
         color: theme.colors.appBarBackgroud,
-        paddingTop: 14,
+        paddingTop: 18,
         padding: 10,
         textAlign: 'center',
         margin: 5,
@@ -116,7 +116,7 @@ export const buttonStyles = StyleSheet.create({
         borderRadius: 7,
         padding: 7,
         marginTop:15,
-        width: 350
+        width: 330
     }
 });
 
