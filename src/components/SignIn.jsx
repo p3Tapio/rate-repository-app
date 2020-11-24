@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TouchableWithoutFeedback, View, Alert } from 'react-native';
 import useSignIn from '../hooks/useSignIn';
 

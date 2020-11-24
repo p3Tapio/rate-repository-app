@@ -93,6 +93,18 @@ export const buttonStyles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
         shadowRadius: 1,
+    },
+    linkToGit: {
+        backgroundColor: theme.colors.appBarBackgroud,
+        color: theme.colors.textWhite,
+        alignSelf:'center',
+        textAlign: 'center',
+        borderColor: '#2f363c',
+        borderWidth: 2,
+        borderRadius: 7,
+        padding: 7,
+        marginTop:15,
+        width: 350
     }
 });
 

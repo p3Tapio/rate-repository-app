@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableWithoutFeedback } from 'react-native';
 import Text from './Text';
-import { containerStyles } from '../theme';
+import { containerStyles, buttonStyles } from '../theme';
+import * as WebBrowser from 'expo-web-browser';
 
 const rounder = (x) => {
     const y = x / 1000;
     return (Math.round(y * 10) / 10) + 'k';
 };
 
-const RepoHeadElement = ({ item }) => {
+const RepoHeadElement = ({ item }) => { 
     return (
         <View style={{ flexDirection: 'row' }}>
             <Image source={{ uri: item.ownerAvatarUrl }} style={containerStyles.repoAvatar}></Image>
@@ -45,12 +46,24 @@ const RepoStats = ({ item }) => {
         </View>
     );
 };
+const RepoBtn = ({ url }) => {
+  
+    return (
+        <TouchableWithoutFeedback onPress={() => WebBrowser.openBrowserAsync(url)}>
+            <Text style={buttonStyles.linkToGit}>Open in GitHub</Text>
+        </TouchableWithoutFeedback>
+    );
+};
 
-const RepositoryItem = ({ item }) => (
-    <View style={containerStyles.mainCardContainer}>
-        <RepoHeadElement item={item} />
-        <RepoStats item={item} />
-    </View>
-);
+const RepositoryItem = ({ item }) => {
+
+    return (
+        <View style={containerStyles.mainCardContainer}>
+            <RepoHeadElement item={item} />
+            <RepoStats item={item} />
+            {item.url ? <RepoBtn url={item.url} /> : <></>}
+        </View>
+    );
+};
 
 export default RepositoryItem;
