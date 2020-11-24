@@ -52,6 +52,18 @@ export const containerStyles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 5
     },
+    reviewRating: {
+        width: 60, 
+        height: 60,
+        borderRadius: 30,
+        borderWidth: 5,
+        borderColor: theme.colors.appBarBackgroud,
+        color: theme.colors.appBarBackgroud,
+        paddingTop: 14,
+        padding: 10,
+        textAlign: 'center',
+        margin: 5,
+    }
 });
 export const buttonStyles = StyleSheet.create({
     submit: {

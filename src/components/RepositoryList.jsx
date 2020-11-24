@@ -8,18 +8,15 @@ const ItemSeparator = () => <View />;
 
 export const RepositoryListContainer = ({ repos }) => {
     const history = useHistory();
-    const handlePress = (id) => {
-        console.log('id', id);
-        history.push(`/repoitem/${id}`);
-    };
     const repositoryNodes = repos ? repos.edges.map(edge => edge.node) : [];
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
                 data={repositoryNodes}
                 ItemSeparatorComponent={ItemSeparator}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => handlePress(item.id)}>
+                    <TouchableOpacity onPress={() => history.push(`/repoitem/${item.id}`)}>
                         <RepositoryItem item={item} />
                     </TouchableOpacity>
                 )}
