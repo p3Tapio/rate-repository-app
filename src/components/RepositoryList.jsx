@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, View, TouchableOpacity } from 'react-native';
+import Picker from '@react-native-community/picker/js/Picker';
+
 import useRepositories from '../hooks/useRepositories';
 import RepositoryItem from './RepositoryItem';
 import { useHistory } from 'react-router-native';
+import { containerStyles } from '../theme';
 
 const ItemSeparator = () => <View />;
 
-export const RepositoryListContainer = ({ repos }) => {
+const SelectSorting = ({ sort, setSort }) => {
+
+    return (
+        <Picker
+            selectedValue={sort}
+            style={containerStyles.mainCardContainer}
+            onValueChange={(itemValue) => setSort(itemValue)}
+        >
+            <Picker.Item label="Latest repositories" value="latest" />
+            <Picker.Item label="Highest rated repositories" value="highest" />
+            <Picker.Item label="Lowest rated repositories" value="lowest" />
+        </Picker>
+    );
+};
+
+export const RepositoryListContainer = ({ repos, sort, setSort }) => {
     const history = useHistory();
     const repositoryNodes = repos ? repos.edges.map(edge => edge.node) : [];
- 
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
@@ -21,6 +39,7 @@ export const RepositoryListContainer = ({ repos }) => {
                     </TouchableOpacity>
                 )}
                 keyExtractor={(item, index) => `${index}`}
+                ListHeaderComponent={() => <SelectSorting setSort={setSort} sort={sort} />}
                 style={{ paddingBottom: 10, paddingHorizontal: 10 }}
             />
         </View>
@@ -28,10 +47,14 @@ export const RepositoryListContainer = ({ repos }) => {
 };
 
 const RepositoryList = () => {
-    const { data } = useRepositories();
-    if (!data) return null;
-    return <RepositoryListContainer repos={data.repositories} />;
-};
+    const [sort, setSort] = useState('latest');
+    const { data } = useRepositories(sort);
 
+    if (!data) return null;
+
+    return (
+        <RepositoryListContainer repos={data.repositories} sort={sort} setSort={setSort} />
+    );
+};
 
 export default RepositoryList;
