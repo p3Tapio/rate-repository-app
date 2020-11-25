@@ -26,7 +26,7 @@ const AppBar = () => {
     const { data } = useQuery(GET_USER);
     const authStorage = useContext(AuthStorageContext);
     const client = useApolloClient();
-    const history = useHistory(); 
+    const history = useHistory();
 
     const handleLogout = async () => {
         await authStorage.removeAccessToken();
@@ -56,11 +56,18 @@ const AppBar = () => {
                             </Text>
                         </TouchableWithoutFeedback>
                     </>
-                    : <Link to="/signin" component={TouchableWithoutFeedback}>
-                        <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
-                            Sign in
-                        </Text>
-                    </Link>
+                    : <>
+                        <Link to="/signin" component={TouchableWithoutFeedback}>
+                            <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
+                                Sign in
+                            </Text>
+                        </Link>
+                        <Link to="/signup" component={TouchableWithoutFeedback}>
+                            <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
+                                Sign up
+                            </Text>
+                        </Link>
+                    </>
                 }
             </ScrollView>
         </View>

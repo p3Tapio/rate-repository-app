@@ -42,7 +42,7 @@ const SingleRepository = () => {
         fetchPolicy: 'cache-and-network'
     });
 
-    if (loading) return null;
+    if (loading && !data) return null;
     const reviews = data ? data.repository.reviews.edges.map(x => x.node) : [];
 
     return (

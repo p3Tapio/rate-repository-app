@@ -2,9 +2,11 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-native';
 import { View, StyleSheet } from 'react-native';
 import theme from '../theme';
+
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 import SingleRepository from './SingleRepository';
 import CreateReview from './CreateReview';
 
@@ -26,6 +28,9 @@ const Main = () => {
                 </Route>
                 <Route path="/signin">
                     <SignIn />
+                </Route>
+                <Route path="/signup">
+                    <SignUp />
                 </Route>
                 <Route path="/repoitem/:id">
                     <SingleRepository />

@@ -53,15 +53,14 @@ export const containerStyles = StyleSheet.create({
         marginTop: 5
     },
     reviewRating: {
-        width: 60, 
-        height: 60,
-        borderRadius: 30,
+        width: 50, 
+        height: 50,
+        borderRadius: 25,
         borderWidth: 5,
         borderColor: theme.colors.appBarBackgroud,
         color: theme.colors.appBarBackgroud,
-        paddingTop: 18,
-        padding: 10,
         textAlign: 'center',
+        paddingTop: 14,
         margin: 5,
     }
 });
