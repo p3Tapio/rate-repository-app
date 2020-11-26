@@ -25,6 +25,8 @@
     "dependencies": {
         "@apollo/react-hooks": "^4.0.0",
         "@react-native-community/async-storage": "~1.11.0",
+        "@react-native-community/picker": "1.6.0",
+        "@react-native-picker/picker": "^1.9.3",
         "apollo-boost": "^0.4.9",
         "dotenv": "^8.2.0",
         "expo": "~38.0.8",
@@ -37,6 +39,7 @@
         "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
         "react-native-web": "~0.11.7",
         "react-router-native": "^5.2.0",
+        "use-debounce": "^5.1.0",
         "yup": "^0.29.3"
     },
     "devDependencies": {

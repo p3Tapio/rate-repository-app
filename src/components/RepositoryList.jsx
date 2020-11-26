@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
-import { FlatList, View, TouchableOpacity } from 'react-native';
-import Picker from '@react-native-community/picker/js/Picker';
 
 import useRepositories from '../hooks/useRepositories';
 import RepositoryItem from './RepositoryItem';
 import { useHistory } from 'react-router-native';
+import { useDebounce } from 'use-debounce';
+
+import { FlatList, View, TouchableOpacity, TextInput } from 'react-native';
+import Picker from '@react-native-community/picker/js/Picker';
 import { containerStyles } from '../theme';
 
 const ItemSeparator = () => <View />;
+
+const FilterRepos = ({ setFilter, filter }) => {
+    return (
+        <TextInput style={containerStyles.textInput} placeholder='Type here to search'
+            value={filter}
+            onChangeText={text => setFilter(text)}
+        />
+    );
+};
 
 const SelectSorting = ({ sort, setSort }) => {
 
     return (
         <Picker
             selectedValue={sort}
-            style={containerStyles.mainCardContainer}
+            style={containerStyles.dropDown}
             onValueChange={(itemValue) => setSort(itemValue)}
         >
             <Picker.Item label="Latest repositories" value="latest" />
@@ -24,37 +35,49 @@ const SelectSorting = ({ sort, setSort }) => {
     );
 };
 
-export const RepositoryListContainer = ({ repos, sort, setSort }) => {
-    const history = useHistory();
-    const repositoryNodes = repos ? repos.edges.map(edge => edge.node) : [];
+export class RepositoryListContainer extends React.Component {
+    renderHeader = () => {
+        return (
+            <>
+                <FilterRepos setFilter={this.props.setFilter} filter={this.props.filter} />
+                <SelectSorting setSort={this.props.setSort} sort={this.props.sort} />
+            </>
+        );
+    };
 
-    return (
-        <View style={{ flex: 1 }}>
+    render() {
+        const repositoryNodes = this.props.repos ? this.props.repos.edges.map(edge => edge.node) : [];
+        return (
             <FlatList
                 data={repositoryNodes}
                 ItemSeparatorComponent={ItemSeparator}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => history.push(`/repoitem/${item.id}`)}>
+                    <TouchableOpacity onPress={() => this.props.history.push(`/repoitem/${item.id}`)}>
                         <RepositoryItem item={item} />
                     </TouchableOpacity>
                 )}
                 keyExtractor={(item, index) => `${index}`}
-                ListHeaderComponent={() => <SelectSorting setSort={setSort} sort={sort} />}
+                ListHeaderComponent={this.renderHeader}
                 style={{ paddingBottom: 10, paddingHorizontal: 10 }}
             />
-        </View>
-    );
-};
+        );
+    }
+}
 
 const RepositoryList = () => {
+
     const [sort, setSort] = useState('latest');
-    const { data } = useRepositories(sort);
+    const [filter, setFilter] = useState('');
+    const [searchKeyword] = useDebounce(filter, 1000);
+    const { data } = useRepositories(sort, searchKeyword);
+    const history = useHistory();
 
     if (!data) return null;
 
     return (
-        <RepositoryListContainer repos={data.repositories} sort={sort} setSort={setSort} />
+        <RepositoryListContainer repos={data.repositories} sort={sort} setSort={setSort} filter={filter} setFilter={setFilter} history={history} />
     );
 };
+
 
 export default RepositoryList;

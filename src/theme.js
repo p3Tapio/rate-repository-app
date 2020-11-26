@@ -62,6 +62,19 @@ export const containerStyles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 14,
         margin: 5,
+    },
+    textInput: {
+        backgroundColor:'white', 
+        borderColor:'lightgray', borderWidth: 1, borderRadius: 3,
+        height: 30, marginHorizontal: 8, marginVertical:5, padding: 5
+    },
+    dropDown: {
+        borderRadius: 3,
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: 'lightgray',
+        height: 30, marginHorizontal: 8, marginVertical:5, padding: 5
+
     }
 });
 export const buttonStyles = StyleSheet.create({
