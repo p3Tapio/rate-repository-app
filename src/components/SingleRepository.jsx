@@ -1,25 +1,18 @@
 import React from 'react';
 import { useParams } from 'react-router-native';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_REPO_DETAILS } from '../graphql/queries';
+import useRepoDetails from '../hooks/useRepoDetails';
 
 import { View, FlatList } from 'react-native';
 import Text from './Text';
 import { containerStyles } from '../theme';
 
 import RepositoryItem from './RepositoryItem';
+import {dateFormat} from '../utils/dateFormat';
 
 const ItemSeparator = () => <View />;
-const dateFormat = (x) => {
-    const date = new Date(x);
-    const dd = date.getDate();
-    const mm = date.getMonth() + 1;
-    const yyyy = date.getFullYear();
 
-    return `${dd}.${mm}.${yyyy}`;
-};
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
     
     return (
         <View style={containerStyles.mainCardContainer}>
@@ -37,10 +30,12 @@ const ReviewItem = ({ review }) => {
 
 const SingleRepository = () => {
     const { id } = useParams();
-    const { data, loading } = useQuery(GET_REPO_DETAILS, {
-        variables: { id: id },
-        fetchPolicy: 'cache-and-network'
-    });
+    const { data, loading, fetchMore } = useRepoDetails({id:id, first:7});
+ 
+    const onEndReact = () => {
+        console.log('END');
+        fetchMore(); 
+    }; 
 
     if (loading && !data) return null;
     const reviews = data ? data.repository.reviews.edges.map(x => x.node) : [];
@@ -52,6 +47,8 @@ const SingleRepository = () => {
             renderItem={({ item }) => <ReviewItem review={item} />}
             keyExtractor={({ id }) => id}
             ListHeaderComponent={() => <RepositoryItem item={data.repository} />}
+            onEndReached={onEndReact}
+            onEndReachedThreshold={0.5}
         />
     );
 };

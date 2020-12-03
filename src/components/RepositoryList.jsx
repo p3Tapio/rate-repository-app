@@ -21,7 +21,6 @@ const FilterRepos = ({ setFilter, filter }) => {
 };
 
 const SelectSorting = ({ sort, setSort }) => {
-
     return (
         <Picker
             selectedValue={sort}
@@ -59,6 +58,8 @@ export class RepositoryListContainer extends React.Component {
                 keyExtractor={(item, index) => `${index}`}
                 ListHeaderComponent={this.renderHeader}
                 style={{ paddingBottom: 10, paddingHorizontal: 10 }}
+                onEndReached={this.props.onEndReach}
+                onEndReachedThreshold={0.5}
             />
         );
     }
@@ -66,16 +67,28 @@ export class RepositoryListContainer extends React.Component {
 
 const RepositoryList = () => {
 
-    const [sort, setSort] = useState('latest');
+    const [sort, setSort] = useState();
     const [filter, setFilter] = useState('');
     const [searchKeyword] = useDebounce(filter, 1000);
-    const { data } = useRepositories(sort, searchKeyword);
     const history = useHistory();
+    const { data, fetchMore } = useRepositories({ sort, searchKeyword, first: 8 });
 
     if (!data) return null;
 
+    const onEndReach = () => {
+        fetchMore();
+    };
+
     return (
-        <RepositoryListContainer repos={data.repositories} sort={sort} setSort={setSort} filter={filter} setFilter={setFilter} history={history} />
+        <RepositoryListContainer
+            repos={data}
+            sort={sort}
+            setSort={setSort}
+            filter={filter}
+            setFilter={setFilter}
+            history={history}
+            onEndReach={onEndReach}
+        />
     );
 };
 

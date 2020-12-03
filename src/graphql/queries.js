@@ -2,8 +2,8 @@
 import { gql } from 'apollo-boost';
 
 export const GET_REPOSITORIES = gql`
-    query repositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String) {
-        repositories(orderBy:$orderBy, orderDirection:$orderDirection, searchKeyword: $searchKeyword) {
+    query repositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String, $first:Int, $after: String) {
+        repositories(orderBy:$orderBy, orderDirection:$orderDirection, searchKeyword: $searchKeyword, first:$first, after:$after) {
             edges {
                 node {
                 id
@@ -16,12 +16,20 @@ export const GET_REPOSITORIES = gql`
                 reviewCount
                 ratingAverage
                 }
+                cursor
+            }
+            pageInfo {
+                endCursor
+                startCursor
+                totalCount
+                hasNextPage
             }
         }
     }
 `;
+
 export const GET_REPO_DETAILS = gql`
-    query repository($id: ID!) {
+    query repository($id: ID!, $after: String, $first: Int) {
         repository(id: $id) {
             id
             ownerAvatarUrl
@@ -33,7 +41,7 @@ export const GET_REPO_DETAILS = gql`
             reviewCount
             ratingAverage
             url
-            reviews {
+            reviews(first:$first, after:$after) {
                 edges {
                     node {
                         id
@@ -46,15 +54,35 @@ export const GET_REPO_DETAILS = gql`
                         }
                     }
                 }
+                pageInfo {
+                    endCursor
+                    startCursor
+                    totalCount
+                    hasNextPage
+                  }
             }
         }
     }
 `;
 export const GET_USER = gql`
-    query {
+query getAuthorizedUser($includeReviews: Boolean = false) {
         authorizedUser {
             id
             username
+            reviews @include(if: $includeReviews) {
+                edges {
+                    node {
+                        id
+                        text
+                        rating
+                        createdAt 
+                        repository {
+                            id
+                            fullName
+                        }
+                    }
+                }
+            }
         }
     }
 `;

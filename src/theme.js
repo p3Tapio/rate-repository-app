@@ -53,7 +53,7 @@ export const containerStyles = StyleSheet.create({
         marginTop: 5
     },
     reviewRating: {
-        width: 50, 
+        width: 50,
         height: 50,
         borderRadius: 25,
         borderWidth: 5,
@@ -64,16 +64,16 @@ export const containerStyles = StyleSheet.create({
         margin: 5,
     },
     textInput: {
-        backgroundColor:'white', 
-        borderColor:'lightgray', borderWidth: 1, borderRadius: 3,
-        height: 30, marginHorizontal: 8, marginVertical:5, padding: 5
+        backgroundColor: 'white',
+        borderColor: 'lightgray', borderWidth: 1, borderRadius: 3,
+        height: 30, marginHorizontal: 8, marginVertical: 5, padding: 5
     },
     dropDown: {
         borderRadius: 3,
         backgroundColor: 'white',
         borderWidth: 1,
         borderColor: 'lightgray',
-        height: 30, marginHorizontal: 8, marginVertical:5, padding: 5
+        height: 30, marginHorizontal: 8, marginVertical: 5, padding: 5
 
     }
 });
@@ -121,14 +121,38 @@ export const buttonStyles = StyleSheet.create({
     linkToGit: {
         backgroundColor: theme.colors.appBarBackgroud,
         color: theme.colors.textWhite,
-        alignSelf:'center',
+        alignSelf: 'center',
         textAlign: 'center',
         borderColor: '#2f363c',
         borderWidth: 2,
         borderRadius: 7,
         padding: 7,
-        marginTop:15,
+        marginTop: 15,
         width: 330
+    },
+    viewRepo: {
+        flex: 1,
+        backgroundColor: theme.colors.appBarBackgroud,
+        color: theme.colors.textWhite,
+        borderWidth: 2,
+        borderColor: '#2f363c',
+        borderRadius: 5,
+
+        padding: 4,
+        paddingHorizontal:30
+
+    },
+    deleteReview: {
+        flex: 1,
+        backgroundColor: '#6E2C35',
+        color: theme.colors.textWhite,
+        borderWidth: 2,
+        borderColor: '#80333e',
+        borderRadius: 5,
+
+        padding: 4,
+        paddingHorizontal:30
+
     }
 });
 

@@ -30,7 +30,7 @@ const AppBar = () => {
 
     const handleLogout = async () => {
         await authStorage.removeAccessToken();
-        client.resetStore();
+        await client.resetStore();
         history.push('/');
     };
 
@@ -48,6 +48,11 @@ const AppBar = () => {
                         <Link to="/review" component={TouchableWithoutFeedback}>
                             <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
                                 Create a review
+                            </Text>
+                        </Link>
+                        <Link to="/myreviews" component={TouchableWithoutFeedback}>
+                            <Text fontSize="subheading" fontWeight="bold" color="white" style={{ margin: 5 }}>
+                                My reviews
                             </Text>
                         </Link>
                         <TouchableWithoutFeedback onPress={handleLogout}>
